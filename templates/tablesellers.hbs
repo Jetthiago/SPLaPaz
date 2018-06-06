@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="/css/table.css">
+<div class="container">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Planilha de outro mês
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            {{#each yearsList}}
+            <li>
+                <a href="#/table?year={{year}}&month={{month}}">{{monthReadable}}/{{year}}</a>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    <form method="post" class="form-horizontal" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-hover table-condensed table-highlight jumbotron">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center" colspan="{{tableLength}}">
+                            Planilha dos vendedores de {{month}} de {{year}}
+                        </th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <th colspan="1" scope="row" class="col-sm-1">Dia</th>
+                            {{#each sellers}}
+                            <th class="col-sm-1">
+                                <div class="text-right">{{this}}</div>
+                            </th>
+                            {{/each}}
+                        </tr>
+                        {{#each daily}}
+                        <tr>
+                            <th rowspan="1" class="">{{num}}</th>
+                            {{#each day}}
+                            <td class="">
+                                <input class="form-control text-right" type="number" value="{{value}}" name="{{name}}" min="0" step="0.01" readonly />
+                            </td>
+                            {{/each}}
+                        </tr>
+                        {{/each}}
+                        <tr>
+                            <td colspan="1">Total</td>
+                            {{#each totals}}
+                            <td>
+                                <input class="form-control" type="number" value="{{this}}" min="0" step="0.01" disabled />
+                            </td>
+                            {{/each}}
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+        <button type="subimit" class="btn btn-primary table-submiter" onclick="router_client.submiter.postNoValidation(event)" disabled
+            formnovalidate="true">Salvar alterações</button>
+    </form>
+</div>
+<script type="text/javascript" src="/js/table.js"></script>

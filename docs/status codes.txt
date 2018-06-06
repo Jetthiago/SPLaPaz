@@ -1,0 +1,6 @@
+200 - aceppted;
+210 - landing data acepted;
+403 - auth missing or wrong;
+404 - not found;
+455 - unacepted value, out of working time;
+515 - db was not able to complete the request, document not found;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<div class="container">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Relatório de outro ano
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            {{#each yearsList}}
+            <li>
+                <a href="#/report?year={{this}}">{{this}}</a>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    
+    <form method="post" class="form-horizontal" onsubmit="return false">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-hover table-condensed table-highlight jumbotron">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center" colspan="13">
+                            Relatório de {{year}}
+                        </th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="col-sm-1"><sub>Funcionário</sub><big>\</big><sup>Mês</sup></th>
+                            {{#each months}}
+                            <th class="col-sm-1">
+                                <div class="text-left">{{this}}</div>
+                            </th>
+                            {{/each}}
+                        </tr>
+                        {{#each employees}}
+                        <tr>
+                            <th class="">{{name}}</th>
+                            {{#each monthRevenue}}
+                            <td class="">{{this}}</td>
+                            {{/each}}
+                        </tr>
+                        {{/each}}
+                        <tr><th colspan="13"><hr/></th></tr>
+                        {{#each sellers}}
+                        <tr>
+                            <th class="">{{name}}</th>
+                            {{#each monthRevenue}}
+                            <td class="">{{this}}</td>
+                            {{/each}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+            </table>
+        </div>
+    </form>
+</div>

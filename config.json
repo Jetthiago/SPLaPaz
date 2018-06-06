@@ -1,0 +1,10 @@
+{
+	"appName": "Venda dos funcionários",
+	"debug": true,
+	"port": 80,
+	"key": 2163,
+	"keygrip": ["keymen1","kerman2"],
+	"databaseMode": "nedb",
+	"database": "singlePageLaPaz",
+	"collections": ["system", "tables", "login", "employees", "sellers", "test"]
+}

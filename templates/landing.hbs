@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="css/landing.css">
+<div class="container">
+    <div class="col-xs-12">
+        <h3 class="text-center">{{date}}</h3> {{!-- 15 de janeiro de 2018 - Dia --}}
+    </div>
+</div>
+<form method="post" onsubmit="return false">
+<div class="jumbotron container">
+    <div class="col-xs-12">
+        <h3 class="text-center">Balconistas</h3>
+    </div>
+        <div class="form-group col-xs-6">
+            <label for="name">Nome: </label>
+            <select name="name" class="form-control" id="nameSelect">
+                {{#each names}}
+                <option>{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="value">Vendas: </label>
+            <input type="number" name="value" class="form-control" id="up-input" min="0" step="0.01" />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary center-block" value="Confirmar" onclick="router_client.submiter.postNoValidation(event)" />
+        </div>
+</div>
+
+<div class="jumbotron container">
+    <div class="col-xs-12">
+        <h3 class="text-center">Vendedores</h3>
+    </div>
+        <div class="form-group col-xs-6">
+            <label for="name">Nome: </label>
+            <select name="nameSellers" class="form-control" id="nameSelect">
+                {{#each namesSellers}}
+                <option>{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="value">Vendas: </label>
+            <input type="number" name="valueSellers" class="form-control" id="up-input" min="0" step="0.01" />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary center-block" value="Confirmar" onclick="router_client.submiter.postNoValidation(event)">
+        </div>
+</div>
+</form>

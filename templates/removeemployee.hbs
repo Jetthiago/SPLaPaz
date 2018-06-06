@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="css/removeemployee.css" />
+<div class="jumbotron container">
+    <div class="alert alert-info">
+        <strong>Lembre-se que qualquer funcionario removido continuará na planilha até o fim do mês. Mas não poderá adicionar nenhum valor durante esse periodo.</strong>
+    </div>
+    <div class="contatiner">
+        <h4>Balconista</h4>
+    </div>
+    {{#each employees}}
+    <div class="container dib-table">
+        <div class="col-sm-10">
+            {{name}}
+        </div>
+        <button class="col-sm-2 btn btn-primary employee" id="{{name}}employee" onclick="router_client.event.removeemployee(event)">Remover</button>
+    </div>
+    {{/each}}
+
+    <hr />
+
+    <div class="contatiner">
+        <h4>Vendedor</h4>
+    </div>
+    {{#each sellers}}
+    <div class="container dib-table">
+        <div class="col-sm-10">
+            {{name}}
+        </div>
+        <button class="col-sm-2 btn btn-primary seller" id="{{name}}seller" onclick="router_client.event.removeemployee(event)">Remover</button>
+    </div>
+    {{/each}}
+</div>

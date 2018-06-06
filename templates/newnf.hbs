@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="/css/caspio/newnf.css">
+<script type="text/javascript" src="/js/caspio/newnf.js"></script>
+<form method="post" class="form">
+<table class="table table-responsive table-responsive-force table-striped table-hover table-condensed table-highlight jumbotron">
+	<thead class="thead-inverse">
+		<tr>
+			<th class="col-xs-7">Vendedor*: <input class="form-control" type="text" name="seller" required /></th>
+			<th class="col-xs-5">Cliente: <input class="form-control" type="text" name="client" /></th>
+		</tr>
+		<tr>
+			<th class="col-xs-7">Anotações: <input class="form-control" type="textarea" name=""></th>
+			<th class="col-xs-5">Operador: <input class="form-control" type="text" name="user" value="{{user}}" readonly /></th>
+		</tr>
+		<tr>
+			<th class="col-xs-7">
+				<div class="checkbox inline-flex">
+					<label>
+						<input type="checkbox" id="showPrices" name="showPrices" checked>Mostrar Preços
+					</label>
+				</div>
+				<div class="checkbox inline-flex">
+					<label>
+						<input type="checkbox" id="2via" name="2via" checked>Segunda via
+					</label>
+				</div>
+				<div class="checkbox inline-flex">
+					<label>
+						<input type="checkbox" id="hasDev" name="hasDev" checked>Devoluções e mofados
+					</label>
+				</div>
+				<div class="checkbox inline-flex">
+					<label>
+						<input type="checkbox" id="descountMof" name="descountMof">Descontar Mofados
+					</label>
+				</div>
+			</th>
+			<th class="col-xs-5">Data: <input class="form-control" type="date" name="date" value="{{date}}" readonly /></th>
+		</tr>
+	</thead>
+	<!-- <tbody>
+		<tr>
+			<td></td>
+		</tr>
+	</tbody> -->
+</table>
+<table class="table table-responsive table-responsive-force table-striped table-hover table-condensed table-highlight jumbotron">
+	<thead class="thead-inverse">
+		<tr>
+			<th>Quant</th>
+			<th>Produto</th>
+			<th>Preço</th>
+			<th class="dev">Dev</th>
+			<th class="mof">Mof</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each produts}}
+		<tr>
+		<td scope="row" class="col-xs-2"><input class="form-control" id="{{name}} quant" type="number" name="{{name}} quant" /></td>
+		<td><!-- <input class="form-control" type="text" name="{{name}}" value="{{name}}" readonly> --> <div class="form-control name">{{name}}</div></td>
+		<td class="col-xs-3"><input class="form-control" id="{{name}} price" type="number" name="{{name}} price" value="{{price}}" /></td>
+		<td class="col-xs-2 dev"><input class="form-control" id="{{name}} dev" type="number" name="{{name}} dev" /></td>
+		<td class="col-xs-2 mof"><input class="form-control" id="{{name}} mof" type="number" name="{{name}} mof" /></td>
+		<td class="col-xs-3"><input class="form-control" id="{{name}} total" type="number" name="{{name}} total" readonly /></td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+<button type="subimit" class="btn btn-primary">Salvar e imprimir</button>
+</form>
