@@ -1,14 +1,13 @@
 
 var tableData = function(request, db, date, initalCallback) {
     employeesManager.resumEveryone(db);
+    var pageWidth = config.pageWidth;
     var query = tableFunction.getQuery(request),
         bolNaN = {
             year: isNaN(query.year),
             month: isNaN(query.month)
         }
-    if(bolNaN.year && bolNaN.month){
-        query = false;
-    } else {
+    if(!bolNaN.year && !bolNaN.month){
         date = new Date(query.year, query.month);
     }
     getDate.set(date);
@@ -17,6 +16,7 @@ var tableData = function(request, db, date, initalCallback) {
         month: getDate.month("string"),
         year: getDate.year(),
         employees: [],
+        pagesList: [],
         daily: [],
         totals: [],
         tableLength: 1
@@ -24,7 +24,8 @@ var tableData = function(request, db, date, initalCallback) {
     var public = {
         year: date.getFullYear(),
         month: date.getMonth(),
-        document: {}
+        document: {},
+        page: parseInt(query.page) || 1
     }
     async.series([
         function getMonthData(callback) {
@@ -40,10 +41,28 @@ var tableData = function(request, db, date, initalCallback) {
         function getData(callback) {
             var revenue = public.document.revenue,
                 numberOfDays = getDate.numberOfDays();
+            revenue = revenue.slice((pageWidth * (public.page - 1)), (pageWidth * public.page));
             for(var i = 0; i < revenue.length; i++){
-                genData.employees[revenue[i].order] = revenue[i].name;
+                genData.employees[i] = revenue[i].name;
             }
-            genData.tableLength = genData.employees.length + 2;
+            // Define a lista de paginas;
+            var nPages = public.document.revenue.length / pageWidth,
+                actual = public.page,
+                strActual = "";
+            for(var i = 0; i < nPages; i++){
+                if(actual == i+1){
+                    strActual = "actual";
+                }
+                genData.pagesList[i] = {
+                    href: "year="+date.getFullYear()+"&month="+date.getMonth()+"&page="+(i+1),
+                    n: i+1,
+                    actual: strActual
+                };
+                strActual = "";
+            }
+            if(!genData.pagesList[0]) genData.pagesList[0] = 1;
+            /* genData.tableLength = genData.employees.length + 2; */
+            genData.tableLength = pageWidth + 2;
             for(var i = 0; i < numberOfDays; i++){
                 var dayArray = [],
                     nightArray = [],
@@ -62,7 +81,7 @@ var tableData = function(request, db, date, initalCallback) {
                 genData.daily[i] = auxObj;
             }
             for(var i = 0; i < revenue.length; i++){
-                genData.totals[revenue[i].order] = revenue[i].total ? revenue[i].total.toFixed(2) : null;
+                genData.totals[i] = revenue[i].total ? revenue[i].total.toFixed(2) : null;
             }
             callback(null, genData);
         },

@@ -1,10 +1,10 @@
 {
-  "name": "singlepagelapazsimple",
-  "version": "1.1.0",
-  "description": "^^",
+  "name": "splapaz",
+  "version": "1.1.1",
+  "description": "Servidor NodeJS para gerenciar as vendas dos banconistas e vendedores",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js",
+    "debug": "nodemon index.js",
     "start": "node index.js",
     "initial": "node util/install.js",
     "employee": "node util/addEmployee.js",

@@ -1,14 +1,13 @@
 
 module.exports = function tableDataSellers(request, db, date, initalCallback) {
     employeesManager.resumEveryone(db);
+    var pageWidth = config.pageWidth;
     var query = tableFunction.getQuery(request),
         bolNaN = {
             year: isNaN(query.year),
             month: isNaN(query.month)
         }
-    if (bolNaN.year && bolNaN.month) {
-        query = false;
-    } else {
+    if (!bolNaN.year && !bolNaN.month) {
         date = new Date(query.year, query.month);
     }
     getDate.set(date);
@@ -17,6 +16,7 @@ module.exports = function tableDataSellers(request, db, date, initalCallback) {
         month: getDate.month("string"),
         year: getDate.year(),
         sellers: [],
+        pagesList: [],
         daily: [],
         totals: [],
         tableLength: 1
@@ -24,7 +24,8 @@ module.exports = function tableDataSellers(request, db, date, initalCallback) {
     var public = {
         year: date.getFullYear(),
         month: date.getMonth(),
-        document: {}
+        document: {},
+        page: parseInt(query.page) || 1
     }
     async.series([
         function getMonthData(callback) {
@@ -40,10 +41,27 @@ module.exports = function tableDataSellers(request, db, date, initalCallback) {
         function getData(callback) {
             var sellersRevenue = public.document.sellers,
                 numberOfDays = getDate.numberOfDays();
+            sellersRevenue = sellersRevenue.slice((pageWidth * (public.page - 1)), (pageWidth * public.page));
             for (var i = 0; i < sellersRevenue.length; i++) {
-                genData.sellers[sellersRevenue[i].order] = sellersRevenue[i].name;
+                genData.sellers[i] = sellersRevenue[i].name;
             }
-            genData.tableLength = genData.sellers.length + 1;
+            // Define a lista de paginas;
+            var nPages = public.document.sellers.length / pageWidth,
+                actual = public.page,
+                strActual = "";
+            for (var i = 0; i < nPages; i++) {
+                if (actual == i + 1) {
+                    strActual = "actual";
+                }
+                genData.pagesList[i] = {
+                    href: "year=" + date.getFullYear() + "&month=" + date.getMonth() + "&page=" + (i + 1),
+                    n: i + 1,
+                    actual: strActual
+                };
+                strActual = "";
+            }
+            if (!genData.pagesList[0]) genData.pagesList[0] = 1;
+            genData.tableLength = pageWidth + 1;
             for (var i = 0; i < numberOfDays; i++) {
                 var dayArray = [],
                     auxObj = { day: [], num: 0 };
@@ -57,7 +75,7 @@ module.exports = function tableDataSellers(request, db, date, initalCallback) {
                 genData.daily[i] = auxObj;
             }
             for (var i = 0; i < sellersRevenue.length; i++) {
-                genData.totals[sellersRevenue[i].order] = sellersRevenue[i].total ? sellersRevenue[i].total.toFixed(2) : null;
+                genData.totals[i] = sellersRevenue[i].total ? sellersRevenue[i].total.toFixed(2) : null;
             }
             callback(null, genData);
         },

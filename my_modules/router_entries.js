@@ -311,8 +311,12 @@ function routerEntries(router, hb, db, sessionne, console, config) {
                         for(var j = 0; j < document.revenue[i].day.length; j++){
                             var resDay = public.fields[j + document.revenue[i].name + "day"],
                                 resNight = public.fields[j + document.revenue[i].name + "night"];
-                            document.revenue[i].day[j] = resDay ? parseFloat(resDay) : null;
-                            document.revenue[i].night[j] = resNight ? parseFloat(resNight) : null;
+                            if (resDay) {
+                                document.revenue[i].day[j] = parseFloat(resDay);
+                            }
+                            if (resNight) {
+                                document.revenue[i].night[j] = parseFloat(resNight);
+                            }
                         }
                     }
                     public.document = document;
@@ -392,7 +396,9 @@ function routerEntries(router, hb, db, sessionne, console, config) {
                     for(var i = 0; i < document.sellers.length; i++){
                         for(var j = 0; j < document.sellers[i].day.length; j++){
                             var resDay = public.fields[j + document.sellers[i].name + "day"];
-                            document.sellers[i].day[j] = resDay ? parseFloat(resDay) : null;
+                            if (resDay) {
+                                document.sellers[i].day[j] = parseFloat(resDay);
+                            }
                         }
                     }
                     public.document = document;

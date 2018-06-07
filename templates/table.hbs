@@ -14,6 +14,12 @@
 			{{/each}}
 		</ul>
 	</div>
+	{{!-- Lista de paginas --}}
+	<div class="page-list container center-block text-center">
+		{{#each pagesList}}
+		<a class="page-elem {{this.actual}}" href="#/table?{{this.href}}">{{this.n}}</a>
+		{{/each}}
+	</div>
 	<form method="post" class="form-horizontal" onsubmit="return false">
 		<div class="table-responsive">
 		<table class="table table-sm table-striped table-hover table-condensed table-highlight jumbotron">

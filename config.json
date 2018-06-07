@@ -6,5 +6,6 @@
 	"keygrip": ["keymen1","kerman2"],
 	"databaseMode": "nedb",
 	"database": "singlePageLaPaz",
-	"collections": ["system", "tables", "login", "employees", "sellers", "test"]
+	"collections": ["system", "tables", "login", "employees", "sellers", "test"],
+	"pageWidth": 7
 }

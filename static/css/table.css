@@ -26,3 +26,16 @@ input:-moz-read-only{
 input:read-only{
     background-color: white !important;
 }
+
+.page-list {
+    margin: 0.5em;
+}
+.page-elem {
+    font-size: 1.2em;
+    /* font-weight: bold; */
+    text-decoration: underline;
+    margin-right: 0.1em;
+}
+.actual {
+    font-weight: bolder;
+}
