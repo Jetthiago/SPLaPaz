@@ -36,7 +36,7 @@ sessionne = new Sessionne(db);
 var console = new myConsole(config.debug);
 
 // loading configuration;
-var port = config.port;
+var port = process.env.PORT || config.port;
 var keygrip = config.keygrip;
 var appName = config.appName;
 global["codeTable"] = require("./codeTable.json");
