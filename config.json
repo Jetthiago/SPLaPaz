@@ -1,7 +1,7 @@
 {
 	"appName": "Venda dos funcionários",
 	"debug": true,
-	"port": 80,
+	"port": 3000,
 	"key": 2163,
 	"keygrip": ["keymen1","kerman2"],
 	"databaseMode": "nedb",
